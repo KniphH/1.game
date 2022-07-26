@@ -1,0 +1,4 @@
+﻿  源.cpp
+C:\Users\linhu\source\repos\贪吃蛇\贪吃蛇\源.cpp(13,8): warning C4101: “xy”: 未引用的局部变量
+C:\Users\linhu\source\repos\贪吃蛇\贪吃蛇\源.cpp(9): warning C4715: “clic”: 不是所有的控件路径都返回值
+  贪吃蛇.vcxproj -> C:\Users\linhu\source\repos\贪吃蛇\x64\Debug\贪吃蛇.exe
