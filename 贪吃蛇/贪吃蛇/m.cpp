@@ -9,80 +9,90 @@ int clic()
 int main()
 {
 	srand(unsigned(time(NULL)));
-	string xy[29][29]; short x = 15, y = 15,remove[1000][2], a = 0, l[29][29], x1 = rand() % 24 + 2, y1 = rand() % 24 + 2, score = 3, s = 0;
+	string map[29][29];//地图
+	short x = 15, y = 15,//蛇头
+		remove[700][2],
+		direction = 0,
+		body[29][29],//蛇身
+		star_x = rand() % 24 + 2, star_y = rand() % 24 + 2,
+		length = 3,
+		times = 0;//移动次数
 	while (1)
 	{
-		int j = 0;int i = 0;
-		remove[s][0] = x,remove[s][1] = y;
+		int j = 0; int i = 0;
+		remove[times][0] = x, remove[times][1] = y;
 		switch (clic()) {
 		case 119:
-			a = 1; x--; s++; break;
+			direction = 1; x--; times++; break;
 		case 100:
-			a = 2; y++; s++; break;
+			direction = 2; y++; times++; break;
 		case 97:
-			a = 3; y--; s++;;break;
+			direction = 3; y--; times++; break;
 		case 115:
-			a = 4; x++; s++; break;
+			direction = 4; x++; times++; break;
 		default:
-			if (a == 1)
+			if (direction == 1)
 			{
-				x--; s++;; ;
+				x--; times++;
 			}
-			else if (a == 2)
+			if (direction == 2)
 			{
-				y++; s++; ;;
+				y++; times++;
 			}
-			else if (a == 3)
+			if (direction == 3)
 			{
-				y--; s++; ; ;
+				y--; times++;
 			}
-			else if (a == 4)
+			if (direction == 4)
 			{
-				x++; s++; ; ;
+				x++; times++;
 			}
 			Sleep(100);
 		}
-		if (a != 0)
+
+		if (direction != 0)
 		{
-		l[x][y] ++;
+			body[x][y] ++;
 		}
 		for (i = 0; i < 29; i++)
 		{
 			for (j = 0; j < 29; j++)
 			{
-				if (remove[s - score][0] == i && remove[s - score][1] == j)
+				if (remove[times - length][0] == i && remove[times - length][1] == j)
 				{
-					l[i][j]=0;
+					body[i][j] = 0;
 				}
-				if (1 == l[i][j])
+				if (1 == body[i][j])
 				{
-					xy[i][j] = "■";
+					map[i][j] = "■";
 				}
-				else if (x1 == i && y1 == j)
+				else if (star_x == i && star_y == j)
 				{
-					xy[i][j] = "☆";
+					map[i][j] = "☆";
 				}
-				else if(l[i][j]==0)
+				else if (body[i][j] == 0)
 				{
-					xy[i][j] = "  ";
+					map[i][j] = "  ";
 				}
-				if (l[i][j] == 2||x>29||x<0||y>29||y<0)
+				if (body[i][j] == 2 || x > 28 || x < 0 || y>28 || y < 0 || times>600)
 				{
 					goto end;
 				}
-				cout << xy[i][j];
-				if (x1 == x && y1 == y)
+				cout << map[i][j];
+				if (star_x == x && star_y == y)
 				{
-					x1 = rand() % 24 + 2;
-					y1 = rand() % 24 + 2;
-					score++;
+					star_x = rand() % 24 + 2;
+					star_y = rand() % 24 + 2;
+					length++;
 				}
 			}
-			cout << "|" << endl;
+			cout << "│" << endl;
 		}
-		cout << "__________________________________________________________|时间："<<99-(s/10)<<"  长度："<<score;
+		cout << "──────────────────────────────────────────────────────────┘time:" << 60 - times / 10 << "s length:" << length << " ";
 		cls();
 	}
 end:
+	cout << "you die!\n";
+	system("pause");
 	return 0;
 }
